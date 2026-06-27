@@ -2,6 +2,7 @@
 
 import { ArrowRight, ChevronDown, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
+import CountUp from "react-countup";
 
 import { SiteLayout } from "@/components/layout/site-layout";
 import { Grid } from "@/components/layout/grid";
@@ -11,14 +12,35 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { SectionTitle } from "@/components/ui/section-title";
+import {
+  AiPlatformSection,
+  DigitalTwinSection,
+  FinalCtaSection,
+  ImpactSection,
+  LatestNewsSection,
+  ResearchSection,
+  RoboticsPlatformSection,
+  TechnologySection,
+  TestimonialsSection,
+  TrustedBySection,
+  VisionSection,
+} from "@/components/sections/homepage-sections";
+import { Scene } from "@/components/three/Scene";
 import { company } from "@/data/company";
 import { navigation } from "@/data/navigation";
 
 const metrics = [
-  { label: "Fields monitored", value: "16k+" },
-  { label: "Autonomy uptime", value: "99.8%" },
-  { label: "Insight cycles", value: "24/7" },
-  { label: "Mission readiness", value: "100%" },
+  { label: "Fields monitored", value: 16000, suffix: "+", duration: 2.2 },
+  { label: "Autonomy uptime", value: 99.8, suffix: "%", duration: 2.4 },
+  { label: "Insight cycles", value: 24, suffix: "/7", duration: 2.0 },
+  { label: "Mission readiness", value: 100, suffix: "%", duration: 2.1 },
+];
+
+const stats = [
+  { label: "Products", value: 42, suffix: "+", detail: "Field-ready systems", duration: 2.4 },
+  { label: "Research", value: 18, suffix: "k", detail: "Annual experiments", duration: 2.2 },
+  { label: "Countries", value: 27, suffix: "+", detail: "Global deployments", duration: 2.3 },
+  { label: "Patents", value: 96, suffix: "+", detail: "Protected IP", duration: 2.5 },
 ];
 
 const highlights = [
@@ -117,26 +139,15 @@ export default function Home() {
               transition={{ duration: 0.75, delay: 0.1, ease: "easeOut" }}
               className="relative"
             >
-              <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[rgba(10,23,38,0.82)] p-6 shadow-[0_0_120px_rgba(34,197,94,0.2)] backdrop-blur-2xl">
+              <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[rgba(10,23,38,0.82)] p-4 shadow-[0_0_120px_rgba(34,197,94,0.2)] backdrop-blur-2xl sm:p-6">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(56,189,248,0.15),_transparent_42%)]" />
-                <div className="relative rounded-[1.5rem] border border-white/10 bg-[rgba(255,255,255,0.04)] p-6">
+                <div className="relative rounded-[1.5rem] border border-white/10 bg-[rgba(255,255,255,0.04)] p-3 sm:p-6">
                   <div className="flex items-center justify-between text-sm text-white/60">
-                    <span className="font-medium uppercase tracking-[0.28em] text-primary">Robot Scene Ready</span>
-                    <span className="rounded-full border border-white/10 bg-white/6 px-3 py-1">3D-ready</span>
+                    <span className="font-medium uppercase tracking-[0.28em] text-primary">Autonomous robotics</span>
+                    <span className="rounded-full border border-white/10 bg-white/6 px-3 py-1">Interactive 3D</span>
                   </div>
-                  <div className="mt-8 rounded-[1.5rem] border border-dashed border-white/15 bg-[linear-gradient(145deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))] p-8">
-                    <div className="mx-auto flex h-64 max-w-sm items-center justify-center rounded-[2rem] border border-white/10 bg-[radial-gradient(circle,_rgba(56,189,248,0.2),_transparent_60%)]">
-                      <motion.div
-                        animate={{ y: [0, -8, 0], rotate: [0, 3, 0] }}
-                        transition={{ duration: 5, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
-                        className="relative"
-                      >
-                        <div className="mx-auto h-24 w-24 rounded-full border border-primary/30 bg-primary/10" />
-                        <div className="mx-auto mt-4 h-10 w-28 rounded-full border border-white/10 bg-white/8" />
-                        <div className="mx-auto mt-3 h-3 w-20 rounded-full bg-white/15" />
-                        <p className="mt-5 text-center text-sm uppercase tracking-[0.3em] text-white/45">Future Three.js robot scene</p>
-                      </motion.div>
-                    </div>
+                  <div className="mt-4 sm:mt-6">
+                    <Scene />
                   </div>
                 </div>
               </div>
@@ -180,7 +191,13 @@ export default function Home() {
             ))}
           </Grid>
 
-          <div className="mt-10 rounded-[2rem] border border-white/10 bg-[rgba(255,255,255,0.04)] p-6 sm:p-8">
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="mt-10 rounded-[2rem] border border-white/10 bg-[rgba(255,255,255,0.04)] p-6 sm:p-8"
+          >
             <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
               <div>
                 <p className="text-sm font-semibold uppercase tracking-[0.24em] text-primary">Navigation ready</p>
@@ -194,9 +211,21 @@ export default function Home() {
                 ))}
               </div>
             </div>
-          </div>
+          </motion.div>
         </MaxWidthContainer>
       </Section>
+
+      <TrustedBySection />
+      <VisionSection />
+      <RoboticsPlatformSection />
+      <AiPlatformSection />
+      <DigitalTwinSection />
+      <ResearchSection />
+      <TechnologySection />
+      <ImpactSection />
+      <TestimonialsSection />
+      <LatestNewsSection />
+      <FinalCtaSection />
     </SiteLayout>
   );
 }

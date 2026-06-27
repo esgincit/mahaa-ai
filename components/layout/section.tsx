@@ -3,12 +3,13 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 interface SectionProps extends React.HTMLAttributes<HTMLElement> {
-  as?: React.ElementType;
+  as?: keyof React.JSX.IntrinsicElements | React.JSXElementConstructor<any>;
   padding?: "sm" | "md" | "lg";
+  children?: React.ReactNode;
 }
 
 function Section({
-  as: Component = "section",
+  as,
   className,
   padding = "lg",
   children,
@@ -20,10 +21,15 @@ function Section({
     lg: "py-20 sm:py-24 lg:py-32",
   }[padding];
 
-  return (
-    <Component className={cn("relative", paddingClassName, className)} {...props}>
-      {children}
-    </Component>
+  const Component = (as ?? "section") as keyof React.JSX.IntrinsicElements | React.JSXElementConstructor<any>;
+
+  return React.createElement(
+    Component,
+    {
+      className: cn("relative", paddingClassName, className),
+      ...props,
+    },
+    children,
   );
 }
 
