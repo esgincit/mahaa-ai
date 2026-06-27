@@ -8,98 +8,9 @@ import * as React from "react";
 
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
+import { company } from "@/data/company";
+import { navigation } from "@/data/navigation";
 import { cn } from "@/lib/utils";
-
-type NavItem = {
-  label: string;
-  href: string;
-  description: string;
-  highlights: Array<{ label: string; href: string; blurb: string }>;
-};
-
-const navItems: NavItem[] = [
-  {
-    label: "Products",
-    href: "/products",
-    description: "Mission-ready platforms for automation and operations.",
-    highlights: [
-      { label: "Robotics OS", href: "/products/robotics-os", blurb: "Control fleets with adaptive orchestration." },
-      { label: "AI Workbench", href: "/products/ai-workbench", blurb: "Accelerate decisions with living models." },
-    ],
-  },
-  {
-    label: "Research",
-    href: "/research",
-    description: "Research systems engineered for rigorous insight.",
-    highlights: [
-      { label: "Knowledge Graph", href: "/research/graph", blurb: "Connect experiments, evidence, and outcomes." },
-      { label: "Simulation Lab", href: "/research/simulation", blurb: "Test behavior across real-world conditions." },
-    ],
-  },
-  {
-    label: "Technology",
-    href: "/technology",
-    description: "A stack designed for speed, safety, and scale.",
-    highlights: [
-      { label: "Digital Twin", href: "/technology/digital-twin", blurb: "Visualize and operate in a living environment." },
-      { label: "Edge Intelligence", href: "/technology/edge", blurb: "Deploy insights where decisions happen." },
-    ],
-  },
-  {
-    label: "Solutions",
-    href: "/solutions",
-    description: "Tailored outcomes for complex organizations.",
-    highlights: [
-      { label: "Operational AI", href: "/solutions/ai", blurb: "Turn workflows into intelligent systems." },
-      { label: "Infrastructure Modernization", href: "/solutions/infrastructure", blurb: "Unify data, control, and trust." },
-    ],
-  },
-  {
-    label: "Industries",
-    href: "/industries",
-    description: "Vertical expertise across advanced sectors.",
-    highlights: [
-      { label: "Manufacturing", href: "/industries/manufacturing", blurb: "Precision automation at every layer." },
-      { label: "Energy", href: "/industries/energy", blurb: "Situational intelligence for mission-critical environments." },
-    ],
-  },
-  {
-    label: "About",
-    href: "/about",
-    description: "A team building the future of applied intelligence.",
-    highlights: [
-      { label: "Our Story", href: "/about/story", blurb: "Learn how MahaaAI was built." },
-      { label: "Leadership", href: "/about/leadership", blurb: "Meet the teams shaping the platform." },
-    ],
-  },
-  {
-    label: "Blog",
-    href: "/blog",
-    description: "Perspectives on robotics, research, and AI design.",
-    highlights: [
-      { label: "Insights", href: "/blog/insights", blurb: "Read the latest field notes." },
-      { label: "Case Studies", href: "/blog/case-studies", blurb: "Explore how our systems perform in production." },
-    ],
-  },
-  {
-    label: "Careers",
-    href: "/careers",
-    description: "Join a team building trusted AI systems.",
-    highlights: [
-      { label: "Open Roles", href: "/careers/open-roles", blurb: "Find the right fit for your craft." },
-      { label: "Culture", href: "/careers/culture", blurb: "What it means to build with MahaaAI." },
-    ],
-  },
-  {
-    label: "Contact",
-    href: "/contact",
-    description: "Start a conversation with our team.",
-    highlights: [
-      { label: "Book a Demo", href: "/contact/demo", blurb: "See the platform in action." },
-      { label: "Support", href: "/contact/support", blurb: "Reach our specialists for rollout needs." },
-    ],
-  },
-];
 
 function MegaNavigation() {
   const pathname = usePathname();
@@ -118,11 +29,11 @@ function MegaNavigation() {
       >
         <Container className="flex items-center justify-between py-4">
           <Link href="/" className="font-heading text-lg font-semibold tracking-[0.2em] text-white sm:text-xl">
-            MAHAAAI
+            {company.name.toUpperCase()}
           </Link>
 
           <nav className="hidden items-center gap-2 lg:flex">
-            {navItems.map((item) => {
+            {navigation.map((item) => {
               const active = isActiveRoute(item.href);
 
               return (
@@ -245,7 +156,7 @@ function MegaNavigation() {
               </div>
 
               <div className="mt-8 flex flex-col gap-3">
-                {navItems.map((item) => {
+                {navigation.map((item) => {
                   const active = isActiveRoute(item.href);
                   return (
                     <Link
