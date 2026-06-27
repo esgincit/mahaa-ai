@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { SectionTitle } from "@/components/ui/section-title";
 import {
+  AboutMahaaSection,
   AiPlatformSection,
   DigitalTwinSection,
   FinalCtaSection,
@@ -23,7 +24,6 @@ import {
   TechnologySection,
   TestimonialsSection,
   TrustedBySection,
-  VisionSection,
 } from "@/components/sections/homepage-sections";
 import { Scene } from "@/components/three/Scene";
 import { company } from "@/data/company";
@@ -216,7 +216,7 @@ export default function Home() {
       </Section>
 
       <TrustedBySection />
-      <VisionSection />
+      <AboutMahaaSection />
       <RoboticsPlatformSection />
       <AiPlatformSection />
       <DigitalTwinSection />

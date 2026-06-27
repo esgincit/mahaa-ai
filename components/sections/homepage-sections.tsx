@@ -83,18 +83,19 @@ const researchMetrics = [
 ];
 
 const technologies = [
-  { name: "AI", description: "Decision engines for planning and forecasting", icon: Brain },
   { name: "Computer Vision", description: "High-accuracy crop and field perception", icon: Camera },
+  { name: "AI", description: "Decision engines for planning and forecasting", icon: Brain },
   { name: "Robotics", description: "Autonomous agents for field operations", icon: Bot },
   { name: "IoT", description: "Real-time device telemetry and orchestration", icon: Cpu },
   { name: "Cloud", description: "Secure edge-to-cloud compute stack", icon: Cloud },
+  { name: "Edge AI", description: "Low-latency inference at the field edge", icon: Zap },
 ];
 
 const impactStats = [
-  { label: "Products", value: 42, suffix: "+", detail: "Field-ready systems", icon: Sprout },
-  { label: "Research", value: 18, suffix: "k", detail: "Annual experiments", icon: Microscope },
-  { label: "Countries", value: 27, suffix: "+", detail: "Global deployments", icon: Globe2 },
-  { label: "Patents", value: 96, suffix: "+", detail: "Protected IP", icon: Zap },
+  { label: "Acres Managed", value: 2400000, suffix: "+", detail: "Field area monitored and optimized", icon: Sprout },
+  { label: "Robots Deployed", value: 180, suffix: "+", detail: "Autonomous systems active in operations", icon: Bot },
+  { label: "Research Projects", value: 64, suffix: "+", detail: "Active innovation programs and pilots", icon: Microscope },
+  { label: "Countries", value: 27, suffix: "+", detail: "Global deployments and partners", icon: Globe2 },
 ];
 
 const testimonials = [
@@ -144,7 +145,11 @@ function TrustedBySection() {
           align="center"
         />
         <div className="mt-8 overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 p-4 backdrop-blur-xl sm:p-6">
-          <div className="flex w-max gap-4">
+          <motion.div
+            className="flex w-max gap-4"
+            animate={{ x: [0, -50] }}
+            transition={{ duration: 24, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
+          >
             {[...partnerLogos, ...partnerLogos].map((logo, index) => (
               <motion.div
                 key={`${logo}-${index}`}
@@ -157,14 +162,14 @@ function TrustedBySection() {
                 {logo}
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </MaxWidthContainer>
     </Section>
   );
 }
 
-function VisionSection() {
+function AboutMahaaSection() {
   return (
     <Section className="bg-[rgba(6,18,31,0.96)]">
       <MaxWidthContainer>
@@ -216,7 +221,7 @@ function RoboticsPlatformSection() {
     <Section className="bg-[rgba(3,10,19,0.95)]">
       <MaxWidthContainer>
         <SectionTitle
-          eyebrow="Robotics platform"
+          eyebrow="Product ecosystem"
           title="Autonomous machines that adapt on the move"
           description="Deploy the right robotics intelligence for your field, fleet, or facility with a single orchestrated layer."
           align="center"
@@ -234,6 +239,12 @@ function RoboticsPlatformSection() {
                     <CardTitle className="mt-4">{item.title}</CardTitle>
                     <CardDescription>{item.description}</CardDescription>
                   </CardHeader>
+                  <CardContent>
+                    <Button variant="ghost" className="px-0">
+                      Learn More
+                      <ArrowRight className="size-4" />
+                    </Button>
+                  </CardContent>
                 </Card>
               </motion.div>
             );
@@ -313,6 +324,13 @@ function DigitalTwinSection() {
           description="Connect your physical systems to a living digital environment and test every decision with confidence."
           align="center"
         />
+        <div className="mt-8 flex justify-center">
+          <div className="relative w-full max-w-3xl rounded-[2rem] border border-white/10 bg-white/5 px-6 py-4">
+            <motion.div animate={{ x: [0, 80, 0], y: [0, -12, 0] }} transition={{ duration: 8, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }} className="absolute left-8 top-1/2 h-3 w-3 rounded-full bg-primary" />
+            <motion.div animate={{ x: [0, -70, 0], y: [0, 12, 0] }} transition={{ duration: 7.5, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }} className="absolute right-8 top-1/2 h-3 w-3 rounded-full bg-sky-400" />
+            <div className="h-px w-full bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+          </div>
+        </div>
         <Grid cols="3" className="mt-10">
           {twinCards.map((card, index) => (
             <motion.div key={card.title} initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.5, delay: index * 0.06 }}>
@@ -348,7 +366,7 @@ function ResearchSection() {
         <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr]">
           <motion.div initial={{ opacity: 0, x: -18 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.6 }}>
             <SectionTitle
-              eyebrow="Research"
+              eyebrow="Research & Innovation"
               title="Innovation grounded in field evidence"
               description="Every release is guided by real-world evaluation, bench validation, and autonomous learning loops."
             />
@@ -380,6 +398,19 @@ function ResearchSection() {
                   </div>
                 ))}
               </Grid>
+              <div className="mt-6 rounded-[1rem] border border-white/10 bg-[linear-gradient(135deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03))] p-5">
+                <p className="text-sm font-semibold uppercase tracking-[0.24em] text-primary">Publications</p>
+                <div className="mt-4 space-y-3">
+                  {[
+                    "Field robotics and autonomy review",
+                    "Adaptive sensing for resilient operations",
+                  ].map((item) => (
+                    <div key={item} className="rounded-[0.9rem] border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/70">
+                      {item}
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </motion.div>
         </div>
@@ -393,9 +424,9 @@ function TechnologySection() {
     <Section className="bg-[rgba(3,10,19,0.95)]">
       <MaxWidthContainer>
         <SectionTitle
-          eyebrow="Technology"
+          eyebrow="Technology Stack"
           title="The foundation beneath every autonomous workflow"
-          description="AI, computer vision, robotics, IoT, and cloud systems work together as a single operating stack."
+          description="AI, computer vision, robotics, IoT, cloud, and edge intelligence work together as a single operating stack."
           align="center"
         />
         <Grid cols="5" className="mt-10">
@@ -426,7 +457,7 @@ function ImpactSection() {
     <Section className="bg-[rgba(6,18,31,0.96)]">
       <MaxWidthContainer>
         <SectionTitle
-          eyebrow="Impact"
+          eyebrow="Impact Metrics"
           title="Measured outcomes, proven at enterprise scale"
           description="Every deployment is paired with insights that improve uptime, visibility, and decision quality."
           align="center"
@@ -539,7 +570,7 @@ function FinalCtaSection() {
           <div className="max-w-3xl">
             <Badge className="border-white/20 bg-white/10 text-white">Ready to deploy</Badge>
             <h2 className="mt-6 font-heading text-3xl font-semibold tracking-[-0.02em] text-white sm:text-4xl lg:text-5xl">
-              Bring autonomous intelligence to your most demanding operations.
+              Ready to Transform Agriculture?
             </h2>
             <p className="mt-5 text-lg leading-8 text-white/75">
               Discover how MahaaAI can help your team unify robotics, analytics, and digital twins into one premium operating platform.
@@ -561,6 +592,7 @@ function FinalCtaSection() {
 }
 
 export {
+  AboutMahaaSection,
   AiPlatformSection,
   DigitalTwinSection,
   FinalCtaSection,
@@ -571,5 +603,4 @@ export {
   TechnologySection,
   TestimonialsSection,
   TrustedBySection,
-  VisionSection,
 };
