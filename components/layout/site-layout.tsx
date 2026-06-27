@@ -1,13 +1,10 @@
 import * as React from "react";
 
-import { MegaNavigation } from "@/components/navigation/mega-navigation";
 import { Container } from "@/components/ui/container";
 
 function SiteLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen bg-background">
-      <MegaNavigation />
-
       <main>{children}</main>
 
       <footer className="border-t border-white/10 bg-background/60">

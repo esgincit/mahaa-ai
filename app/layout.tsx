@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
+import { Header } from "@/components/navigation/Header";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -31,7 +32,10 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${inter.variable} ${spaceGrotesk.variable} h-full bg-background text-foreground antialiased dark`}
     >
-      <body className="min-h-full bg-background text-foreground">{children}</body>
+      <body className="min-h-full bg-background text-foreground">
+        <Header />
+        {children}
+      </body>
     </html>
   );
 }
