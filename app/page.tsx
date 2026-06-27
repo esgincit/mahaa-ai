@@ -18,6 +18,7 @@ const metrics = [
   { label: "Fields monitored", value: "16k+" },
   { label: "Autonomy uptime", value: "99.8%" },
   { label: "Insight cycles", value: "24/7" },
+  { label: "Mission readiness", value: "100%" },
 ];
 
 const highlights = [
@@ -89,7 +90,7 @@ export default function Home() {
                 {company.tagline}
               </p>
               <p className="mt-6 max-w-xl text-base leading-7 text-white/60 sm:text-lg">
-                {company.description}
+                Orchestrate robotics, predictive insight, and resilient operations from a single intelligent platform built for modern farms.
               </p>
               <div className="mt-8 flex flex-wrap gap-4">
                 <Button size="lg" className="gap-2">
@@ -100,7 +101,7 @@ export default function Home() {
                   Schedule Demo
                 </Button>
               </div>
-              <div className="mt-10 flex flex-wrap gap-4 sm:gap-6">
+              <div className="mt-10 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
                 {metrics.map((metric) => (
                   <div key={metric.label} className="rounded-2xl border border-white/10 bg-white/6 px-4 py-3 backdrop-blur">
                     <p className="text-2xl font-semibold text-white">{metric.value}</p>
@@ -124,12 +125,17 @@ export default function Home() {
                     <span className="rounded-full border border-white/10 bg-white/6 px-3 py-1">3D-ready</span>
                   </div>
                   <div className="mt-8 rounded-[1.5rem] border border-dashed border-white/15 bg-[linear-gradient(145deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))] p-8">
-                    <div className="mx-auto flex h-56 max-w-sm items-center justify-center rounded-[2rem] border border-white/10 bg-[radial-gradient(circle,_rgba(56,189,248,0.2),_transparent_60%)]">
-                      <div className="grid gap-4 text-center text-white/70">
-                        <div className="mx-auto h-20 w-20 rounded-full border border-primary/30 bg-primary/10" />
-                        <div className="mx-auto h-10 w-32 rounded-full border border-white/10 bg-white/8" />
-                        <p className="text-sm uppercase tracking-[0.3em] text-white/45">Future Three.js robot scene</p>
-                      </div>
+                    <div className="mx-auto flex h-64 max-w-sm items-center justify-center rounded-[2rem] border border-white/10 bg-[radial-gradient(circle,_rgba(56,189,248,0.2),_transparent_60%)]">
+                      <motion.div
+                        animate={{ y: [0, -8, 0], rotate: [0, 3, 0] }}
+                        transition={{ duration: 5, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+                        className="relative"
+                      >
+                        <div className="mx-auto h-24 w-24 rounded-full border border-primary/30 bg-primary/10" />
+                        <div className="mx-auto mt-4 h-10 w-28 rounded-full border border-white/10 bg-white/8" />
+                        <div className="mx-auto mt-3 h-3 w-20 rounded-full bg-white/15" />
+                        <p className="mt-5 text-center text-sm uppercase tracking-[0.3em] text-white/45">Future Three.js robot scene</p>
+                      </motion.div>
                     </div>
                   </div>
                 </div>
