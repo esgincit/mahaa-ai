@@ -10,9 +10,12 @@ function Particles() {
   const positions = React.useMemo(() => {
     const array = new Float32Array(count * 3);
     for (let i = 0; i < count; i += 1) {
-      array[i * 3] = (Math.random() - 0.5) * 14;
-      array[i * 3 + 1] = Math.random() * 6;
-      array[i * 3 + 2] = (Math.random() - 0.5) * 14;
+      const xSeed = Math.sin((i + 1) * 12.9898) * 43758.5453;
+      const ySeed = Math.sin((i + 1) * 78.233) * 24634.6345;
+      const zSeed = Math.sin((i + 1) * 37.719) * 19341.1173;
+      array[i * 3] = ((xSeed - Math.floor(xSeed)) - 0.5) * 14;
+      array[i * 3 + 1] = (ySeed - Math.floor(ySeed)) * 6;
+      array[i * 3 + 2] = ((zSeed - Math.floor(zSeed)) - 0.5) * 14;
     }
     return array;
   }, []);

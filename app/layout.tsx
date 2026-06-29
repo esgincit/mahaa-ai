@@ -16,7 +16,7 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "MahaaAI | Intelligence That Cultivates the Future",
+  title: "MahaaAI",
   description:
     "MahaaAI builds intelligent robotics, research platforms, and digital twin experiences for the future.",
 };

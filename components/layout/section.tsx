@@ -3,7 +3,7 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 interface SectionProps extends React.HTMLAttributes<HTMLElement> {
-  as?: keyof React.JSX.IntrinsicElements | React.JSXElementConstructor<any>;
+  as?: React.ElementType;
   padding?: "sm" | "md" | "lg";
   children?: React.ReactNode;
 }
@@ -21,7 +21,7 @@ function Section({
     lg: "py-20 sm:py-24 lg:py-32",
   }[padding];
 
-  const Component = (as ?? "section") as keyof React.JSX.IntrinsicElements | React.JSXElementConstructor<any>;
+  const Component = (as ?? "section") as React.ElementType;
 
   return React.createElement(
     Component,

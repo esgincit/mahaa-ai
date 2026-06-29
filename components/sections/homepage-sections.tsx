@@ -4,12 +4,15 @@ import * as React from "react";
 import { motion } from "framer-motion";
 import CountUp from "react-countup";
 import {
+  Activity,
   ArrowRight,
+  BarChart3,
   Bot,
   Brain,
   Camera,
   Cloud,
   Cpu,
+  Droplets,
   Globe2,
   Microscope,
   Monitor,
@@ -32,19 +35,46 @@ const partnerLogos = ["Agrisys", "Northstar", "HelioFarm", "AtlaGrid", "Mosaic L
 
 const roboticsFeatures = [
   {
-    title: "Autonomous Rover",
-    description: "Terrain-aware mobility and precision sensing for high-variance environments.",
+    title: "Autonomous Rover X1",
+    description: "Terrain-adaptive mobility and precision sensing for high-variance field conditions.",
     icon: Radar,
+    capabilities: ["Terrain Mapping", "Autonomy", "Remote Diagnostics"],
+    featured: true,
   },
   {
-    title: "Smart Drone",
+    title: "Smart Drone Aerial",
     description: "Adaptive aerial inspection with autonomous path planning and anomaly detection.",
     icon: Bot,
+    capabilities: ["Aerial Survey", "Vision AI", "Rapid Scan"],
+    featured: false,
   },
   {
-    title: "Precision Tractor",
+    title: "Precision Tractor T9",
     description: "Variable-rate action systems that optimize yield, input use, and field care.",
     icon: Tractor,
+    capabilities: ["Variable Rate", "Guidance", "Fleet Sync"],
+    featured: false,
+  },
+  {
+    title: "Harvest Robot H1",
+    description: "High-throughput harvesting assistance with advanced manipulation and vision guidance.",
+    icon: Sprout,
+    capabilities: ["Selective Harvest", "Vision Grip", "Yield Tracking"],
+    featured: false,
+  },
+  {
+    title: "Irrigation Bot I2",
+    description: "Responsive irrigation management for water conservation and field optimization.",
+    icon: Droplets,
+    capabilities: ["Water Logic", "Soil Sensing", "Adaptive Scheduling"],
+    featured: false,
+  },
+  {
+    title: "AI Command Platform",
+    description: "Centralized orchestration layer that connects robotics, analytics, and operations.",
+    icon: Monitor,
+    capabilities: ["Unified Control", "Predictive Ops", "Secure Sync"],
+    featured: false,
   },
 ];
 
@@ -53,6 +83,14 @@ const platformFeatures = [
   "Predictive maintenance models",
   "Multisite workflow orchestration",
   "Secure field-to-cloud telemetry",
+];
+
+const aiModules = [
+  { title: "Fleet Management", description: "Coordinate vehicles, robotics, and people from one live command surface.", icon: Bot },
+  { title: "Crop Analytics", description: "Translate field conditions into clear decisions and next best actions.", icon: BarChart3 },
+  { title: "Weather Intelligence", description: "Simulate and respond to changing conditions before they impact operations.", icon: Cloud },
+  { title: "Disease Detection", description: "Use vision models to identify risk patterns early and reduce spread.", icon: Camera },
+  { title: "Autonomous Mission Planning", description: "Generate efficient routes, tasks, and execution sequences automatically.", icon: Activity },
 ];
 
 const twinCards = [
@@ -68,6 +106,25 @@ const twinCards = [
     title: "Scenario stress tests",
     description: "Evaluate outcomes before committing time, labor, and equipment to the field.",
   },
+];
+
+const twinNodes = [
+  { label: "North Field", status: "Online", className: "left-[8%] top-[18%]" },
+  { label: "Irrigation Hub", status: "Syncing", className: "left-[30%] top-[58%]" },
+  { label: "Drone Bay", status: "Ready", className: "right-[12%] top-[25%]" },
+  { label: "Harvest Zone", status: "Forecast", className: "right-[18%] bottom-[18%]" },
+];
+
+const sensorCards = [
+  { label: "Soil moisture", value: "68%", status: "Stable" },
+  { label: "Air pressure", value: "101.4 kPa", status: "Calm" },
+  { label: "Crop stress", value: "Low", status: "Nominal" },
+];
+
+const predictionItems = [
+  { label: "Irrigation window", value: "18 min" },
+  { label: "Traffic routing", value: "Optimized" },
+  { label: "Yield confidence", value: "+8.2%" },
 ];
 
 const timelineItems = [
@@ -220,31 +277,63 @@ function RoboticsPlatformSection() {
   return (
     <Section className="bg-[rgba(3,10,19,0.95)]">
       <MaxWidthContainer>
-        <SectionTitle
-          eyebrow="Product ecosystem"
-          title="Autonomous machines that adapt on the move"
-          description="Deploy the right robotics intelligence for your field, fleet, or facility with a single orchestrated layer."
-          align="center"
-        />
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+          <div className="max-w-2xl">
+            <SectionTitle
+              eyebrow="Our Products"
+              title="A premium robotics portfolio for intelligent operations"
+              description="From autonomous field robotics to centralized command intelligence, each product is designed for trustworthy performance, rapid deployment, and measurable outcomes."
+            />
+          </div>
+          <Button size="lg" className="gap-2">
+            View All Products
+            <ArrowRight className="size-4" />
+          </Button>
+        </div>
+
         <Grid cols="3" className="mt-10">
           {roboticsFeatures.map((item, index) => {
             const Icon = item.icon;
             return (
-              <motion.div key={item.title} initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.45, delay: index * 0.08 }}>
-                <Card className="h-full border-white/10 bg-white/5 backdrop-blur-xl">
-                  <CardHeader>
-                    <div className="flex size-12 items-center justify-center rounded-2xl border border-primary/20 bg-primary/10 text-primary">
-                      <Icon className="size-5" />
+              <motion.div
+                key={item.title}
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.45, delay: index * 0.05 }}
+                whileHover={{ y: -8, scale: 1.01, rotateX: 4, rotateY: -4 }}
+                className={item.featured ? "md:col-span-2" : undefined}
+              >
+                <Card className={`group relative h-full overflow-hidden border-white/10 bg-[linear-gradient(135deg,rgba(255,255,255,0.09),rgba(255,255,255,0.03))] p-0 backdrop-blur-2xl ${item.featured ? "shadow-[0_0_90px_rgba(34,197,94,0.14)]" : "shadow-[0_0_60px_rgba(56,189,248,0.08)]"}`}>
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(56,189,248,0.16),_transparent_34%),radial-gradient(circle_at_bottom_right,_rgba(34,197,94,0.16),_transparent_36%)]" />
+                  <div className="relative z-10 p-6 sm:p-7">
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="flex size-13 items-center justify-center rounded-2xl border border-primary/20 bg-primary/10 text-primary">
+                        <Icon className="size-6" />
+                      </div>
+                      {item.featured ? (
+                        <Badge className="border-primary/25 bg-primary/10 text-primary">Featured</Badge>
+                      ) : null}
                     </div>
-                    <CardTitle className="mt-4">{item.title}</CardTitle>
-                    <CardDescription>{item.description}</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <Button variant="ghost" className="px-0">
-                      Learn More
-                      <ArrowRight className="size-4" />
-                    </Button>
-                  </CardContent>
+                    <CardTitle className="mt-6 text-white">{item.title}</CardTitle>
+                    <CardDescription className="mt-3 max-w-xl text-sm leading-7 text-white/65">{item.description}</CardDescription>
+                    <div className="mt-6 flex flex-wrap gap-2">
+                      {item.capabilities.map((capability) => (
+                        <span key={capability} className="rounded-full border border-white/10 bg-white/8 px-3 py-1 text-xs font-medium uppercase tracking-[0.24em] text-white/70">
+                          {capability}
+                        </span>
+                      ))}
+                    </div>
+                    <div className="mt-8 flex items-center justify-between">
+                      <Button variant="ghost" className="px-0">
+                        Learn More
+                        <ArrowRight className="size-4" />
+                      </Button>
+                      <div className="flex size-10 items-center justify-center rounded-full border border-white/10 bg-white/8 text-primary transition-transform duration-300 group-hover:rotate-12">
+                        <Sparkles className="size-4" />
+                      </div>
+                    </div>
+                  </div>
                 </Card>
               </motion.div>
             );
@@ -262,8 +351,8 @@ function AiPlatformSection() {
         <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
           <motion.div initial={{ opacity: 0, x: -18 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.6 }}>
             <Badge className="border-sky-400/25 bg-sky-400/10 text-sky-300">AI platform</Badge>
-            <h2 className="mt-5 font-heading text-3xl font-semibold text-white sm:text-4xl">See operations in real time and respond before conditions change.</h2>
-            <p className="mt-5 text-lg leading-8 text-white/65">A unified command layer turns field, fleet, and facility data into clear intelligence for teams on the move.</p>
+            <h2 className="mt-5 font-heading text-3xl font-semibold text-white sm:text-4xl">A premium control surface for autonomous agriculture.</h2>
+            <p className="mt-5 text-lg leading-8 text-white/65">MahaaAI turns fleet movements, crop conditions, and weather signals into one intelligent operating layer that teams can trust.</p>
             <ul className="mt-8 space-y-3">
               {platformFeatures.map((feature) => (
                 <li key={feature} className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/70">
@@ -273,10 +362,11 @@ function AiPlatformSection() {
               ))}
             </ul>
             <Button size="lg" className="mt-8 gap-2">
-              Explore AI Workflows
+              Explore Platform
               <ArrowRight className="size-4" />
             </Button>
           </motion.div>
+
           <motion.div initial={{ opacity: 0, x: 18 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.6 }}>
             <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-[rgba(10,23,38,0.85)] p-4 shadow-[0_0_100px_rgba(56,189,248,0.12)] backdrop-blur-xl sm:p-6">
               <div className="rounded-[1.5rem] border border-white/10 bg-[rgba(255,255,255,0.04)] p-4 sm:p-6">
@@ -284,26 +374,64 @@ function AiPlatformSection() {
                   <span className="font-medium uppercase tracking-[0.28em] text-primary">Operations dashboard</span>
                   <span className="rounded-full border border-white/10 bg-white/6 px-3 py-1">Live</span>
                 </div>
-                <div className="mt-6 grid gap-4 lg:grid-cols-[1.1fr_0.9fr]">
+
+                <div className="mt-6 grid gap-4 lg:grid-cols-[1.05fr_0.95fr]">
                   <div className="rounded-[1.2rem] border border-white/10 bg-[linear-gradient(145deg,rgba(255,255,255,0.07),rgba(255,255,255,0.02))] p-4">
                     <div className="flex items-center justify-between">
                       <p className="text-sm font-semibold text-white/70">Fleet output</p>
                       <div className="rounded-full bg-primary/15 px-3 py-1 text-sm text-primary">+12.4%</div>
                     </div>
-                    <div className="mt-4 h-28 rounded-[1rem] border border-white/10 bg-[radial-gradient(circle_at_top,_rgba(34,197,94,0.2),_transparent_60%)]" />
+                    <div className="mt-4 rounded-[1rem] border border-white/10 bg-[radial-gradient(circle_at_top,_rgba(34,197,94,0.2),_transparent_60%)] p-4">
+                      <motion.div animate={{ height: [72, 120, 72] }} transition={{ duration: 6, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }} className="mx-auto h-24 w-full max-w-[180px] rounded-[0.85rem] border border-white/10 bg-gradient-to-t from-primary/40 via-sky-400/40 to-white/10" />
+                    </div>
+                    <div className="mt-4 flex items-center justify-between text-sm text-white/60">
+                      <span>Mission readiness</span>
+                      <span className="font-semibold text-white">98.6%</span>
+                    </div>
                   </div>
+
                   <div className="space-y-4">
                     {[
                       { label: "Autonomy uptime", value: "99.8%" },
                       { label: "Risk alerts", value: "3 active" },
                       { label: "Actionable insights", value: "18" },
-                    ].map((item) => (
-                      <div key={item.label} className="rounded-[1rem] border border-white/10 bg-white/5 p-4">
+                    ].map((item, index) => (
+                      <motion.div
+                        key={item.label}
+                        initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 0.3 }}
+                        transition={{ duration: 0.35, delay: index * 0.08 }}
+                        className="rounded-[1rem] border border-white/10 bg-white/5 p-4"
+                      >
                         <p className="text-sm text-white/60">{item.label}</p>
                         <p className="mt-1 text-2xl font-semibold text-white">{item.value}</p>
-                      </div>
+                      </motion.div>
                     ))}
                   </div>
+                </div>
+
+                <div className="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+                  {aiModules.map((module, index) => {
+                    const Icon = module.icon;
+                    return (
+                      <motion.div
+                        key={module.title}
+                        initial={{ opacity: 0, y: 12 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 0.3 }}
+                        transition={{ duration: 0.35, delay: index * 0.06 }}
+                        whileHover={{ y: -4, scale: 1.01 }}
+                        className="rounded-[1rem] border border-white/10 bg-[rgba(255,255,255,0.05)] p-4"
+                      >
+                        <div className="flex size-10 items-center justify-center rounded-2xl border border-white/10 bg-white/8 text-primary">
+                          <Icon className="size-5" />
+                        </div>
+                        <p className="mt-3 text-sm font-semibold text-white">{module.title}</p>
+                        <p className="mt-2 text-sm leading-6 text-white/60">{module.description}</p>
+                      </motion.div>
+                    );
+                  })}
                 </div>
               </div>
             </div>
@@ -318,42 +446,108 @@ function DigitalTwinSection() {
   return (
     <Section className="bg-[rgba(3,10,19,0.95)]">
       <MaxWidthContainer>
-        <SectionTitle
-          eyebrow="Digital twin"
-          title="Model the future before you move a single machine"
-          description="Connect your physical systems to a living digital environment and test every decision with confidence."
-          align="center"
-        />
-        <div className="mt-8 flex justify-center">
-          <div className="relative w-full max-w-3xl rounded-[2rem] border border-white/10 bg-white/5 px-6 py-4">
-            <motion.div animate={{ x: [0, 80, 0], y: [0, -12, 0] }} transition={{ duration: 8, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }} className="absolute left-8 top-1/2 h-3 w-3 rounded-full bg-primary" />
-            <motion.div animate={{ x: [0, -70, 0], y: [0, 12, 0] }} transition={{ duration: 7.5, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }} className="absolute right-8 top-1/2 h-3 w-3 rounded-full bg-sky-400" />
-            <div className="h-px w-full bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-          </div>
+        <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+          <motion.div initial={{ opacity: 0, x: -18 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.6 }}>
+            <Badge className="border-sky-400/25 bg-sky-400/10 text-sky-300">Digital twin</Badge>
+            <h2 className="mt-5 font-heading text-3xl font-semibold tracking-[-0.02em] text-white sm:text-4xl">See every field, robot, and sensor as one intelligent system.</h2>
+            <p className="mt-5 text-lg leading-8 text-white/65">MahaaAI creates a living replica of your operation so you can simulate decisions, optimize movement, and act with confidence before the next shift begins.</p>
+            <div className="mt-8 grid gap-3 sm:grid-cols-2">
+              {twinCards.map((card, index) => (
+                <motion.div key={card.title} initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.25 }} transition={{ duration: 0.4, delay: index * 0.06 }}>
+                  <div className="rounded-[1.2rem] border border-white/10 bg-white/5 p-4 backdrop-blur-xl">
+                    <div className="flex size-10 items-center justify-center rounded-2xl border border-primary/20 bg-primary/10 text-primary">
+                      <Monitor className="size-5" />
+                    </div>
+                    <p className="mt-4 text-sm font-semibold text-white">{card.title}</p>
+                    <p className="mt-2 text-sm leading-6 text-white/60">{card.description}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+          <motion.div initial={{ opacity: 0, x: 18 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.6 }}>
+            <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-[rgba(10,23,38,0.9)] p-4 shadow-[0_0_100px_rgba(56,189,248,0.12)] backdrop-blur-xl sm:p-6">
+              <div className="rounded-[1.5rem] border border-white/10 bg-[rgba(255,255,255,0.04)] p-4 sm:p-6">
+                <div className="flex items-center justify-between text-sm text-white/60">
+                  <span className="font-medium uppercase tracking-[0.28em] text-primary">Live digital twin</span>
+                  <span className="rounded-full border border-emerald-400/20 bg-emerald-400/10 px-3 py-1 text-emerald-300">Synced</span>
+                </div>
+
+                <div className="mt-6 grid gap-4 xl:grid-cols-[1.1fr_0.9fr]">
+                  <div className="relative min-h-[320px] overflow-hidden rounded-[1.25rem] border border-white/10 bg-[linear-gradient(135deg,rgba(255,255,255,0.08),rgba(255,255,255,0.02))] p-4">
+                    <div className="absolute inset-4 rounded-[1rem] border border-dashed border-white/10" />
+                    <svg className="absolute inset-0 h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                      <motion.path d="M 18 24 C 32 20, 42 24, 52 36" stroke="rgba(125,211,252,0.7)" strokeWidth="0.6" fill="none" strokeDasharray="2 2" animate={{ pathLength: [0.2, 1, 0.2] }} transition={{ duration: 6, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }} />
+                      <motion.path d="M 54 38 C 64 48, 66 56, 60 68" stroke="rgba(34,197,94,0.7)" strokeWidth="0.6" fill="none" strokeDasharray="2 2" animate={{ pathLength: [0.2, 1, 0.2] }} transition={{ duration: 5.5, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut", delay: 0.4 }} />
+                      <motion.path d="M 30 72 C 40 80, 56 78, 70 62" stroke="rgba(255,255,255,0.35)" strokeWidth="0.6" fill="none" strokeDasharray="2 2" animate={{ pathLength: [0.35, 1, 0.35] }} transition={{ duration: 7, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut", delay: 0.7 }} />
+                    </svg>
+
+                    <div className="absolute left-[8%] top-[18%] h-16 w-24 rounded-[0.95rem] border border-white/10 bg-[rgba(255,255,255,0.08)] p-2 backdrop-blur-sm">
+                      <p className="text-[10px] uppercase tracking-[0.3em] text-white/50">Field</p>
+                      <p className="mt-1 text-xs font-semibold text-white">North Field</p>
+                    </div>
+                    <div className="absolute left-[30%] top-[58%] h-16 w-24 rounded-[0.95rem] border border-white/10 bg-[rgba(255,255,255,0.08)] p-2 backdrop-blur-sm">
+                      <p className="text-[10px] uppercase tracking-[0.3em] text-white/50">Hub</p>
+                      <p className="mt-1 text-xs font-semibold text-white">Irrigation Hub</p>
+                    </div>
+                    <div className="absolute right-[12%] top-[25%] h-16 w-24 rounded-[0.95rem] border border-white/10 bg-[rgba(255,255,255,0.08)] p-2 backdrop-blur-sm">
+                      <p className="text-[10px] uppercase tracking-[0.3em] text-white/50">Bay</p>
+                      <p className="mt-1 text-xs font-semibold text-white">Drone Bay</p>
+                    </div>
+                    <div className="absolute bottom-[14%] right-[16%] h-16 w-24 rounded-[0.95rem] border border-white/10 bg-[rgba(255,255,255,0.08)] p-2 backdrop-blur-sm">
+                      <p className="text-[10px] uppercase tracking-[0.3em] text-white/50">Zone</p>
+                      <p className="mt-1 text-xs font-semibold text-white">Harvest Zone</p>
+                    </div>
+
+                    <motion.div animate={{ x: [0, 8, 0], y: [0, -8, 0] }} transition={{ duration: 5, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }} className="absolute left-[42%] top-[44%] flex size-12 items-center justify-center rounded-full border border-primary/25 bg-primary/10 text-primary shadow-[0_0_25px_rgba(56,189,248,0.2)]">
+                      <Bot className="size-6" />
+                    </motion.div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <div className="rounded-[1rem] border border-white/10 bg-white/5 p-4">
+                      <div className="flex items-center justify-between">
+                        <p className="text-sm font-semibold text-white/70">Sensor data</p>
+                        <span className="rounded-full border border-white/10 bg-white/8 px-2.5 py-1 text-xs uppercase tracking-[0.24em] text-white/50">5 active</span>
+                      </div>
+                      <div className="mt-4 space-y-3">
+                        {sensorCards.map((sensor) => (
+                          <div key={sensor.label} className="rounded-[0.9rem] border border-white/10 bg-[rgba(255,255,255,0.04)] p-3">
+                            <div className="flex items-center justify-between text-sm">
+                              <span className="text-white/60">{sensor.label}</span>
+                              <span className="rounded-full bg-emerald-400/10 px-2 py-1 text-[11px] uppercase tracking-[0.24em] text-emerald-300">{sensor.status}</span>
+                            </div>
+                            <p className="mt-2 text-xl font-semibold text-white">{sensor.value}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="rounded-[1rem] border border-white/10 bg-white/5 p-4">
+                      <div className="flex items-center justify-between">
+                        <p className="text-sm font-semibold text-white/70">AI prediction</p>
+                        <span className="text-sm text-primary">Next 6h</span>
+                      </div>
+                      <div className="mt-4 rounded-[0.95rem] border border-primary/20 bg-primary/10 p-4">
+                        <p className="text-2xl font-semibold text-white">+8.2% yield confidence</p>
+                        <p className="mt-2 text-sm leading-6 text-white/60">Weather shifts and field telemetry are already aligned for the next irrigation cycle.</p>
+                      </div>
+                      <div className="mt-4 space-y-2">
+                        {predictionItems.map((item) => (
+                          <div key={item.label} className="flex items-center justify-between rounded-[0.8rem] border border-white/10 bg-[rgba(255,255,255,0.04)] px-3 py-2 text-sm text-white/70">
+                            <span>{item.label}</span>
+                            <span className="font-semibold text-white">{item.value}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
         </div>
-        <Grid cols="3" className="mt-10">
-          {twinCards.map((card, index) => (
-            <motion.div key={card.title} initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.5, delay: index * 0.06 }}>
-              <Card className="group h-full border-white/10 bg-[linear-gradient(145deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03))] backdrop-blur-xl">
-                <CardHeader>
-                  <div className="flex size-11 items-center justify-center rounded-2xl border border-sky-400/20 bg-sky-400/10 text-sky-300">
-                    <Monitor className="size-5" />
-                  </div>
-                  <CardTitle className="mt-4">{card.title}</CardTitle>
-                  <CardDescription>{card.description}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="mt-2 h-2 w-full rounded-full bg-white/8" />
-                  <div className="mt-3 flex gap-2">
-                    <div className="h-2 flex-1 rounded-full bg-primary/70" />
-                    <div className="h-2 flex-1 rounded-full bg-sky-400/70" />
-                    <div className="h-2 w-10 rounded-full bg-white/10" />
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
-        </Grid>
       </MaxWidthContainer>
     </Section>
   );

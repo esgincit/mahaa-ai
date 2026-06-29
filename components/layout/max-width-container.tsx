@@ -3,7 +3,7 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 interface MaxWidthContainerProps extends React.HTMLAttributes<HTMLElement> {
-  as?: keyof React.JSX.IntrinsicElements | React.JSXElementConstructor<any>;
+  as?: React.ElementType;
   children?: React.ReactNode;
 }
 
@@ -13,7 +13,7 @@ function MaxWidthContainer({
   children,
   ...props
 }: MaxWidthContainerProps) {
-  const Component = (as ?? "div") as keyof React.JSX.IntrinsicElements | React.JSXElementConstructor<any>;
+  const Component = (as ?? "div") as React.ElementType;
 
   return React.createElement(
     Component,

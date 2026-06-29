@@ -11,6 +11,8 @@ function CameraRig() {
   }, [camera]);
 
   useFrame((state) => {
+    // Three.js cameras are intentionally mutable inside the render loop.
+    // eslint-disable-next-line react-hooks/immutability
     camera.position.x = Math.sin(state.clock.elapsedTime * 0.18) * 0.22;
     camera.position.y = 1.8 + Math.sin(state.clock.elapsedTime * 0.12) * 0.04;
     camera.lookAt(0, 0.9, 0);
